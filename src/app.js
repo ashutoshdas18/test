@@ -3,6 +3,7 @@ const express = require('express')
 
 const app=express();
 app.use('/',(req,res)=>{
+    var now=new Date();
     axios.get(`https://www.azlyrics.com/lyrics/justinbieber/sorry.html`,{
         headers:{
             "Content-Encoding": "gzip",
@@ -11,11 +12,12 @@ app.use('/',(req,res)=>{
             "Cookie": "OptanonConsent=isIABGlobal=false&datestamp=Mon+Oct+26+2020+09%3A56%3A37+GMT%2B0530+(India+Standard+Time)&version=6.6.0&hosts=&landingPath=NotLandingPage&groups=C0003%3A1%2CC0004%3A1%2CC0001%3A1&AwaitingReconsent=false&geolocation=IN%3BOR; OptanonAlertBoxClosed=2020-10-26T04:26:37.766Z"
         }
     }).then(function(e){
-        res.send(e.data.split('<div>')[1].split('</div>')[0])})
+        res.send("Success")
+    })
         .catch(function(error){
-            console.log(error)
+            res.send(now.getHours()+" "+now.getMinutes())
         })
-});
+})
 app.listen(3000, () => {
     console.log(`Server started on port`);
 });
